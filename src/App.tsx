@@ -1,3 +1,4 @@
+import Header from "components/header";
 import { NavLink, Route, Routes } from "react-router-dom";
 import CategoriesRoute from "routes/CategoriesRoute";
 import MealDetailsRoute from "routes/MealDetailsRoute";
@@ -19,9 +20,33 @@ function App() {
         </li>
       </ul>
       <Routes>
-        <Route path="/" element={<CategoriesRoute />} />
-        <Route path="/meal-list/:categoryId" element={<MealsRoute />} />
-        <Route path="/meal-detail/:mealId" element={<MealDetailsRoute />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <CategoriesRoute />
+            </>
+          }
+        />
+        <Route
+          path="/meal-list/:categoryId"
+          element={
+            <>
+              <Header />
+              <MealsRoute />
+            </>
+          }
+        />
+        <Route
+          path="/meal-detail/:mealId"
+          element={
+            <>
+              <Header />
+              <MealDetailsRoute />
+            </>
+          }
+        />
         <Route path="/sign-in" element={<SignInRoute />} />
         <Route path="/sign-out" element={<SignOutRoute />} />
         <Route path="*" element={<NotFoundRoute />} />
