@@ -6,6 +6,7 @@ import MealsRoute from "routes/MealsRoute";
 import NotFoundRoute from "routes/NotFoundRoute";
 import SignInRoute from "routes/SignInRoute";
 import SignOutRoute from "routes/SignOutRoute";
+import SignUpRoute from "routes/SignUpRoute";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
         />
         <Route path="/sign-in" element={<SignInRoute />} />
         <Route path="/sign-out" element={<SignOutRoute />} />
+        <Route path="/sign-up" element={<SignUpRoute />} />
         <Route path="*" element={<NotFoundRoute />} />
       </Routes>
     </div>
