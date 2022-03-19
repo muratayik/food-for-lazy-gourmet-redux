@@ -13,9 +13,13 @@ import { NavLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "components/copyright";
 import { validateSignUpInputs } from "utils/validators";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "store/hooks";
+import { signUp } from "store/user/action-creators";
 
 const SignUpRoute = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -52,18 +56,9 @@ const SignUpRoute = () => {
     });
 
     if (!hasError) {
-      const data = {
-        username: `${firstName} ${lastName}`,
-        email,
-        password,
-      };
+      const username = `${firstName.trim()} ${lastName.trim()}`;
 
-      const response = await axios.post(
-        `${process.env.REACT_APP_AUTH_URL}/auth/signup`,
-        data
-      );
-
-      console.log(response);
+      dispatch(signUp(username, email, password, navigate));
     }
   };
 

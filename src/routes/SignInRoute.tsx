@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "store/hooks";
 
 import {
   Avatar,
@@ -13,9 +15,11 @@ import { NavLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "components/copyright";
 import { validateSignInInputs } from "utils/validators";
-import axios from "axios";
+import { signIn } from "store/user/action-creators";
 
 const SignInRoute = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -35,17 +39,7 @@ const SignInRoute = () => {
     setValidationError({ emailError, passwordError });
 
     if (!hasError) {
-      const data = {
-        email,
-        password,
-      };
-
-      const response = await axios.post(
-        `${process.env.REACT_APP_AUTH_URL}/auth/signin`,
-        data
-      );
-
-      console.log(response);
+      dispatch(signIn(email, password, navigate));
     }
   };
 
