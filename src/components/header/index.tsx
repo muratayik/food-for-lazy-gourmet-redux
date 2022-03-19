@@ -1,4 +1,4 @@
-import { Login, Logout } from "@mui/icons-material";
+import { Logout } from "@mui/icons-material";
 import {
   AppBar,
   Grid,

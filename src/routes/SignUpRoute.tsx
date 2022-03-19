@@ -13,6 +13,7 @@ import { NavLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CopyRight from "components/copyright";
 import { validateSignUpInputs } from "utils/validators";
+import axios from "axios";
 
 const SignUpRoute = () => {
   const [firstName, setFirstName] = useState("");
@@ -27,16 +28,21 @@ const SignUpRoute = () => {
     lastNameError: "",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const { firstNameError, lastNameError, emailError, passwordError } =
-      validateSignUpInputs({
-        firstName,
-        lastName,
-        email,
-        password,
-      });
+    const {
+      hasError,
+      firstNameError,
+      lastNameError,
+      emailError,
+      passwordError,
+    } = validateSignUpInputs({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
 
     setValidationError({
       firstNameError,
@@ -44,6 +50,21 @@ const SignUpRoute = () => {
       emailError,
       passwordError,
     });
+
+    if (!hasError) {
+      const data = {
+        username: `${firstName} ${lastName}`,
+        email,
+        password,
+      };
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_AUTH_URL}/auth/signup`,
+        data
+      );
+
+      console.log(response);
+    }
   };
 
   return (

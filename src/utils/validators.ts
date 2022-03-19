@@ -21,7 +21,9 @@ export const validateSignInInputs = ({
     passwordError = "Field can not be empty";
   }
 
-  return { emailError, passwordError };
+  const hasError = emailError || passwordError;
+
+  return { hasError, emailError, passwordError };
 };
 
 export const validateSignUpInputs = ({
@@ -58,5 +60,8 @@ export const validateSignUpInputs = ({
     lastNameError = "Field can not be empty";
   }
 
-  return { firstNameError, lastNameError, emailError, passwordError };
+  const hasError =
+    firstNameError || lastNameError || emailError || passwordError;
+
+  return { hasError, firstNameError, lastNameError, emailError, passwordError };
 };
