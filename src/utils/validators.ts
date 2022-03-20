@@ -1,6 +1,8 @@
 const emailValidationRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+const imageUrlValidationRegex = /(https?:\/\/.*\.(?:png|jpg|jpeg))/i;
+
 export const validateSignInInputs = ({
   email,
   password,
@@ -64,4 +66,36 @@ export const validateSignUpInputs = ({
     firstNameError || lastNameError || emailError || passwordError;
 
   return { hasError, firstNameError, lastNameError, emailError, passwordError };
+};
+
+export const validateCategoryInputs = ({
+  name,
+  imageUrl,
+  description,
+}: {
+  name: string;
+  imageUrl: string;
+  description: string;
+}) => {
+  let nameError = "";
+  let imageUrlError = "";
+  let descriptionError = "";
+
+  if (!name) {
+    nameError = "Field can not be empty";
+  }
+
+  if (!imageUrl) {
+    imageUrlError = "Field can not be empty";
+  } else if (!imageUrlValidationRegex.exec(imageUrl)) {
+    imageUrlError = "Image Url is not valid";
+  }
+
+  if (!description) {
+    descriptionError = "Field can not be empty";
+  }
+
+  const hasError = nameError || imageUrlError || descriptionError;
+
+  return { hasError, nameError, imageUrlError, descriptionError };
 };

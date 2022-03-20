@@ -1,5 +1,6 @@
 import Header from "components/header";
 import { NavLink, Route, Routes } from "react-router-dom";
+import EditCreateCategoryRoute from "routes/admin/EditCreateCategoryRoute";
 import CategoriesRoute from "routes/CategoriesRoute";
 import MealDetailsRoute from "routes/MealDetailsRoute";
 import MealsRoute from "routes/MealsRoute";
@@ -18,6 +19,7 @@ function App() {
           <NavLink to="/meal-detail/qweqwewe">Meal Details</NavLink>{" "}
           <NavLink to="/sign-in">Sign In</NavLink>{" "}
           <NavLink to="/sign-out">Sign Out</NavLink>{" "}
+          <NavLink to="/admin/create-category">Create Category</NavLink>{" "}
         </li>
       </ul>
       <Routes>
@@ -51,6 +53,17 @@ function App() {
         <Route path="/sign-in" element={<SignInRoute />} />
         <Route path="/sign-out" element={<SignOutRoute />} />
         <Route path="/sign-up" element={<SignUpRoute />} />
+
+        <Route
+          path="/admin/create-category"
+          element={
+            <>
+              <Header />
+              <EditCreateCategoryRoute />
+            </>
+          }
+        />
+
         <Route path="*" element={<NotFoundRoute />} />
       </Routes>
     </div>
